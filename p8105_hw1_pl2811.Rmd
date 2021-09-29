@@ -1,0 +1,6 @@
+---
+title: "p8105_hw1_pl2811"
+author: "Pei Hsin Lin"
+date: "9/28/2021"
+output: github_document
+---
