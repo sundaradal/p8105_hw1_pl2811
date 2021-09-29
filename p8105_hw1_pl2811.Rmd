@@ -4,3 +4,104 @@ author: "Pei Hsin Lin"
 date: "9/28/2021"
 output: github_document
 ---
+```{R, echo= FALSE, message=FALSE}
+library(tidyverse)
+library(ggplot2)
+```
+#Problem 1
+```{R}
+a <- c(rnorm(10))
+a
+```
+a random sample of size 10 from a standard Normal distribution
+```{R}
+b <- c(a>0)
+b
+```
+a logical vector indicating whether elements of the sample are greater than 0
+```{R}
+c <- c("p8105", "howework", "one","problem", "one", "character","vector","of","length","ten")
+c
+```
+a character vector of length 10
+```{R}
+d <- factor(c("breakfast", "lunch", "dinner", "dinner","lunch", "breakfast","dinner","lunch","dinner","breakfast"));
+d
+```
+a factor vector of length 10, with 3 different factor “levels”
+```{R}
+df <- data.frame(a,b,c,d)
+df
+```
+put them together in a data frame
+
+```{R}
+df %>%
+pull(a)%>%
+mean()
+```
+The mean of the this normal distribution is -0.2191412.
+```{R}
+df %>%
+pull(b)%>%
+mean()
+```
+The mean of the logical vector is 0.4. R caculate FALSE as 0, TRUE as 1.
+
+```{R}
+df %>%
+pull(c)%>%
+mean()
+```
+The mean of the character vector turn out to be NA. It is because character vector is not numeric.
+
+```{R}
+df %>%
+pull(d)%>%
+mean()
+```
+The mean of the factor vector turn out to be NA. It is because factor vector is not numeric.
+
+```{R, results='hide'}
+as.numeric(b)
+as.numeric(c)
+as.numeric(d)
+```
+In logical vector, if we use as.numeric, R will made FALSE into 0, TRUE into 1.
+
+
+In character vector, as.numeric won't work.
+
+
+In factor vector, if we use as.numeric, R will assigns the numbers 1,2,3,4 and so on depend on how many level this factor vector has.
+
+#Problem 2
+
+```{R}
+data("penguins", package = "palmerpenguins")
+summary(penguins)
+```
+There are 8 variales in the penguins data set, numerical variable including  bill_length_mm, bill_depth_mm , flipper_length_mm, body_mass_g. Categorical variable including species, island, sex, year.
+
+```{R}
+nrow(penguins)
+ncol(penguins)
+mean(pull(penguins, name="flipper_length_mm"))
+```
+
+
+There are 344 rows, 8 columns in the penguins data.
+
+
+```{R}
+penguins_plot=ggplot(penguins, 
+                     aes(x=bill_length_mm, y=flipper_length_mm, color=species))+
+  geom_point(size=1)
+
+penguins_plot
+
+ggsave("penguins.pdf",penguins_plot)
+
+```
+
+
